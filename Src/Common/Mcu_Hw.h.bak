@@ -1,0 +1,324 @@
+/**********************************************************************************************************************
+ *  FILE DESCRIPTION
+ *  -------------------------------------------------------------------------------------------------------------------
+ *         File:  Mcu_Hw.h
+ *       Module:  Mcu
+ *
+ *  Description:  header file for register definitions      
+ *  
+ *********************************************************************************************************************/
+#ifndef MCU_HW_H
+#define MCU_HW_H
+
+/**********************************************************************************************************************
+ * INCLUDES
+ *********************************************************************************************************************/
+
+
+/**********************************************************************************************************************
+ *  GLOBAL CONSTANT MACROS
+ *********************************************************************************************************************/
+
+
+#define MCU_CORE_PERIPHERALS_BASE_ADDRESS		0xE000E000
+
+/*CORE PERIPHERALS OFFSETS*/
+
+#define NVIC_EN_OFFSET							0x100
+#define NVIC_DIS_OFFSET							0x180
+#define NVIC_PEND_OFFSET						0x200
+#define NVIC_UNPEND_OFFSET						0x280
+#define NVIC_ACTIVE_OFFSET						0x300
+#define NVIC_PRI_OFFSET							0x400
+#define NVIC_SWTRIG_OFFSET						0xF00
+
+
+
+/**/
+
+#define ENABLE_INTERRUPT_STRUCT		 			*( (volatile Nvic_Interrupts_Bit_Field_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_EN_OFFSET) )
+#define DISABLE_INTERRUPT_STRUCT	 			*( (volatile Nvic_Interrupts_Bit_Field_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_DIS_OFFSET) )
+#define PEND_INTERRUPT_STRUCT		 			*( (volatile Nvic_Interrupts_Bit_Field_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PEND_OFFSET) )
+#define UNPEND_INTERRUPT_STRUCT	 				*( (volatile Nvic_Interrupts_Bit_Field_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_UNPEND_OFFSET) )
+#define ACTIVATE_INTERRUPT_STRUCT 				*( (volatile Nvic_Interrupts_Bit_Field_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_ACTIVE_OFFSET) )
+#define INTERRUPT_PRIORITY_STRUCT	 			*( (volatile Nvic_Interrupts_priority_tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PRI_OFFSET) )
+
+#define ENABLE_INTERRUPT_REGISTER(INTERRUPT)	*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_EN_OFFSET + (INTERRUPT / 32) * 4) )
+#define DISABLE_INTERRUPT_REGISTER(INTERRUPT)	*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_DIS_OFFSET + (INTERRUPT / 32) * 4) )
+#define PEND_INTERRUPT_REGISTER(INTERRUPT)		*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PEND_OFFSET + (INTERRUPT / 32) * 4) )
+#define UNPEND_INTERRUPT_REGISTER(INTERRUPT)	*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_UNPEND_OFFSET + (INTERRUPT / 32) * 4) )
+#define ACTIVATE_INTERRUPT_REGISTER(INTERRUPT)	*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_ACTIVE_OFFSET + (INTERRUPT / 32) * 4) )
+#define INTERRUPT_PRIORITY_REGISTER(INTERRUPT)	*( (volatile uint32_t *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PRI_OFFSET + (INTERRUPT / 4) * 4) )
+
+
+
+
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION MACROS
+ *********************************************************************************************************************/
+
+
+/*BIT MANIPULATION FUCTION MACROS*/
+
+#define SET_BIT(HW_REG,BIT)						((HW_REG) |= (1<<(BIT)))
+#define CLR_BIT(HW_REG,BIT)						((HW_REG) &= ~(1<<(BIT)))
+#define WRITE_BIT(HW_REG,BIT,VALUE)				(VALUE==1 ? SET_BIT(HW_REG,BIT) : CLR_BIT(HW_REG,BIT))
+#define TOG_BIT(HW_REG,BIT)						((HW_REG) ^= (1<<(BIT)))
+#define GET_BIT(HW_REG,BIT)						((HW_REG) >> (BIT)&1)
+#define SET_GROUP(HW_REG,GROUP)					((HW_REG) |= GROUP)
+#define CLR_GROUP(HW_REG,GROUP)					((HW_REG) &= ~GROUP)
+#define GET_GROUP(HW_REG,GROUP)					((HW_REG) & GROUP)
+ 
+ 
+ 
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA TYPES AND STRUCTURES
+ *********************************************************************************************************************/
+
+typedef struct {
+		uint32_t GPIOA		:1;     
+		uint32_t GPIOB		:1;     
+		uint32_t GPIOC		:1;     
+		uint32_t GPIOD		:1;     
+		uint32_t GPIOE		:1;     
+		uint32_t UART0		:1;
+		uint32_t UART1		:1;
+		uint32_t SSI0		:1; 
+		uint32_t I2C0		:1; 
+		uint32_t PMW0_FAULT	:1;
+		uint32_t PWM0_0 	:1;    
+		uint32_t PWM0_1		:1;    
+		uint32_t PWM0_2		:1;    
+		uint32_t QEI0		:1;      
+		uint32_t ADC0SS0	:1;   
+		uint32_t ADC0SS1	:1;   
+		uint32_t ADC0SS2	:1;   
+		uint32_t ADC0SS3	:1;   
+		uint32_t WDT0		:1;      
+		uint32_t TIMER0A	:1;   
+		uint32_t TIMER0B	:1;   
+		uint32_t TIMER1A 	:1;   
+		uint32_t TIMER1B	:1;   
+		uint32_t TIMER2A	:1;   
+		uint32_t TIMER2B	:1;   
+		uint32_t COMP0		:1;     
+		uint32_t COMP1		:1;     
+		uint32_t			:1;     
+		uint32_t SYSCTL		:1;    
+		uint32_t FLASH		:1;     
+		uint32_t GPIOF		:1;     
+		uint32_t			:2;     
+		uint32_t UART2		:1;     
+		uint32_t SSI1		:1;      
+		uint32_t TIMER3A	:1;   
+		uint32_t TIMER3B	:1;   
+		uint32_t I2C1		:1;      
+		uint32_t QEI1		:1;      
+		uint32_t CAN0		:1;      
+		uint32_t CAN1		:1;      
+		uint32_t 			:2;                 
+		uint32_t HIB		:1;       
+		uint32_t USB0		:1;      
+		uint32_t PWM0_3		:1;    
+		uint32_t UDMA		:1;      
+		uint32_t UDMAERR	:1;   
+		uint32_t ADC1SS0	:1;   
+		uint32_t ADC1SS1	:1;   
+		uint32_t ADC1SS2	:1;   
+		uint32_t ADC1SS3	:1;   
+		uint32_t 			:5;     
+		uint32_t SSI2		:1;      
+		uint32_t SSI3		:1;      
+		uint32_t UART3		:1;     
+		uint32_t UART4		:1;     
+		uint32_t UART5		:1;     
+		uint32_t UART6		:1;     
+		uint32_t UART7		:1;     
+		uint32_t 			:4;                 
+		uint32_t I2C2		:1;      
+		uint32_t I2C3		:1;      
+		uint32_t TIMER4A	:1;   
+		uint32_t TIMER4B	:1;   
+		uint32_t 			:20;                 
+		uint32_t TIMER5A	:1;   
+		uint32_t TIMER5B	:1;   
+		uint32_t WTIMER0A	:1;  
+		uint32_t WTIMER0B	:1;  
+		uint32_t WTIMER1A	:1;  
+		uint32_t WTIMER1B	:1;  
+		uint32_t WTIMER2A	:1;  
+		uint32_t WTIMER2B	:1;  
+		uint32_t WTIMER3A	:1;  
+		uint32_t WTIMER3B	:1;  
+		uint32_t WTIMER4A	:1;  
+		uint32_t WTIMER4B	:1;  
+		uint32_t WTIMER5A	:1;  
+		uint32_t WTIMER5B	:1;  
+		uint32_t FPU		:1;       
+		uint32_t 			:27;                      
+		uint32_t PMW1_0		:1;    
+		uint32_t PWM1_1		:1;    
+		uint32_t PWM1_2		:1;    
+		uint32_t PWM1_3		:1;    
+		uint32_t PWM1_FAULT	:1;
+	}Nvic_Interrupts_Bit_Field_tag;
+	
+	
+	
+	
+	typedef struct{
+		uint32_t			:5;
+		uint32_t priority	:3;
+	}Nvic_Single_Interrupt_priority_tag
+
+
+typedef struct {
+	Nvic_Single_Interrupt_priority_tag GPIOA;     
+	Nvic_Single_Interrupt_priority_tag GPIOB;     
+    Nvic_Single_Interrupt_priority_tag GPIOC;     
+    Nvic_Single_Interrupt_priority_tag GPIOD;     
+	Nvic_Single_Interrupt_priority_tag GPIOE;     
+    Nvic_Single_Interrupt_priority_tag UART0;
+	Nvic_Single_Interrupt_priority_tag UART1;
+	Nvic_Single_Interrupt_priority_tag SSI0; 
+	Nvic_Single_Interrupt_priority_tag I2C0; 
+    Nvic_Single_Interrupt_priority_tag PMW0_FAULT;
+    Nvic_Single_Interrupt_priority_tag PWM0_0;    
+    Nvic_Single_Interrupt_priority_tag PWM0_1;    
+    Nvic_Single_Interrupt_priority_tag PWM0_2;    
+    Nvic_Single_Interrupt_priority_tag QEI0;      
+    Nvic_Single_Interrupt_priority_tag ADC0SS0;   
+    Nvic_Single_Interrupt_priority_tag ADC0SS1;   
+    Nvic_Single_Interrupt_priority_tag ADC0SS2;   
+    Nvic_Single_Interrupt_priority_tag ADC0SS3;   
+    Nvic_Single_Interrupt_priority_tag WDT0;      
+    Nvic_Single_Interrupt_priority_tag TIMER0A;   
+    Nvic_Single_Interrupt_priority_tag TIMER0B;   
+    Nvic_Single_Interrupt_priority_tag TIMER1A;   
+    Nvic_Single_Interrupt_priority_tag TIMER1B;   
+    Nvic_Single_Interrupt_priority_tag TIMER2A;   
+    Nvic_Single_Interrupt_priority_tag TIMER2B;   
+    Nvic_Single_Interrupt_priority_tag COMP0;     
+    Nvic_Single_Interrupt_priority_tag COMP1;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag SYSCTL;    
+    Nvic_Single_Interrupt_priority_tag FLASH;     
+    Nvic_Single_Interrupt_priority_tag GPIOF;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag UART2;     
+    Nvic_Single_Interrupt_priority_tag SSI1;      
+    Nvic_Single_Interrupt_priority_tag TIMER3A;   
+    Nvic_Single_Interrupt_priority_tag TIMER3B;   
+    Nvic_Single_Interrupt_priority_tag I2C1;      
+    Nvic_Single_Interrupt_priority_tag QEI1;      
+    Nvic_Single_Interrupt_priority_tag CAN0;      
+    Nvic_Single_Interrupt_priority_tag CAN1;      
+    Nvic_Single_Interrupt_priority_tag;      
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag HIB;       
+    Nvic_Single_Interrupt_priority_tag USB0;      
+    Nvic_Single_Interrupt_priority_tag PWM0_3;    
+    Nvic_Single_Interrupt_priority_tag UDMA;      
+    Nvic_Single_Interrupt_priority_tag UDMAERR;   
+    Nvic_Single_Interrupt_priority_tag ADC1SS0;   
+    Nvic_Single_Interrupt_priority_tag ADC1SS1;   
+    Nvic_Single_Interrupt_priority_tag ADC1SS2;   
+    Nvic_Single_Interrupt_priority_tag ADC1SS3;   
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag SSI2;      
+    Nvic_Single_Interrupt_priority_tag SSI3;      
+    Nvic_Single_Interrupt_priority_tag UART3;     
+    Nvic_Single_Interrupt_priority_tag UART4;     
+    Nvic_Single_Interrupt_priority_tag UART5;     
+    Nvic_Single_Interrupt_priority_tag UART6;     
+    Nvic_Single_Interrupt_priority_tag UART7;     
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag I2C2;      
+    Nvic_Single_Interrupt_priority_tag I2C3;      
+    Nvic_Single_Interrupt_priority_tag TIMER4A;   
+    Nvic_Single_Interrupt_priority_tag TIMER4B;   
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag TIMER5A;   
+    Nvic_Single_Interrupt_priority_tag TIMER5B;   
+    Nvic_Single_Interrupt_priority_tag WTIMER0A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER0B;  
+    Nvic_Single_Interrupt_priority_tag WTIMER1A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER1B;  
+    Nvic_Single_Interrupt_priority_tag WTIMER2A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER2B;  
+    Nvic_Single_Interrupt_priority_tag WTIMER3A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER3B;  
+    Nvic_Single_Interrupt_priority_tag WTIMER4A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER4B;  
+    Nvic_Single_Interrupt_priority_tag WTIMER5A;  
+    Nvic_Single_Interrupt_priority_tag WTIMER5B;  
+    Nvic_Single_Interrupt_priority_tag FPU;       
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;      
+    Nvic_Single_Interrupt_priority_tag;      
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag;     
+    Nvic_Single_Interrupt_priority_tag;      
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;                 
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag;    
+    Nvic_Single_Interrupt_priority_tag     
+    Nvic_Single_Interrupt_priority_tag     
+    Nvic_Single_Interrupt_priority_tag PMW1_0;    
+    Nvic_Single_Interrupt_priority_tag PWM1_1;    
+    Nvic_Single_Interrupt_priority_tag PWM1_2;    
+    Nvic_Single_Interrupt_priority_tag PWM1_3;    
+    Nvic_Single_Interrupt_priority_tag PWM1_FAULT;
+	}Nvic_Interrupts_priority_tag;
+	
+	
+#endif  /* MCU_HW_H */
+
+
+/**********************************************************************************************************************
+ *  END OF FILE: Mcu_Hw.h
+ *********************************************************************************************************************/
