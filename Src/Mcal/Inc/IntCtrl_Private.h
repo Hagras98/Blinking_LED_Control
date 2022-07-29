@@ -31,20 +31,20 @@
 #define NVIC_EN_OFFSET							0x100
 #define NVIC_DIS_OFFSET							0x180
 #define NVIC_PEND_OFFSET						0x200
-#define NVIC_UNPEND_OFFSET						0x280
-#define NVIC_ACTIVE_OFFSET						0x300
+#define NVIC_UNPEND_OFFSET					0x280
+#define NVIC_ACTIVE_OFFSET					0x300
 #define NVIC_PRI_OFFSET							0x400
-#define NVIC_SWTRIG_OFFSET						0xF00
-#define SCB_INTCTRL_OFFSET						0xD04
+#define NVIC_SWTRIG_OFFSET					0xF00
+#define SCB_INTCTRL_OFFSET					0xD04
 #define SCB_APINT_OFFSET						0xD0C
 
 
 
 /*REGISTERS DEFINITIONS*/
 
-#define NVIC_SOFTWARE_TRIGGER_INTERRUPT_REGISTER		( (volatile Nvic_Software_Trigger_Interrupt_Tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_SWTRIG_OFFSET) )
-#define SCB_INTERRUPT_CONTROL_AND_STATE							( (volatile Scb_Interrupt_Control_And_State_Tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + SCB_INTCTRL_OFFSET) )
-#define SCB_APPLICATION_INTERRUPT_AND_RESET_CONTROL	( (volatile Scb_Application_Interrupt_and_Reset_Control_Tag *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + SCB_APINT_OFFSET) )
+#define NVIC_SOFTWARE_TRIGGER_INTERRUPT_REGISTER		( (volatile Nvic_Software_Trigger_InterruptType *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_SWTRIG_OFFSET) )
+#define SCB_INTERRUPT_CONTROL_AND_STATE							( (volatile Scb_Interrupt_Control_And_StateType *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + SCB_INTCTRL_OFFSET) )
+#define SCB_APPLICATION_INTERRUPT_AND_RESET_CONTROL	( (volatile Scb_Application_Interrupt_and_Reset_ControlType *) (MCU_CORE_PERIPHERALS_BASE_ADDRESS + SCB_APINT_OFFSET) )
 
 
 //TODO: The rest of SCB registers definitions
@@ -53,12 +53,12 @@
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
 
-#define NVIC_ENABLE_INTERRUPT_REGISTER(INTERRUPT_ID)	( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_EN_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
-#define NVIC_DISABLE_INTERRUPT_REGISTER(INTERRUPT_ID)	( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_DIS_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
-#define NVIC_PEND_INTERRUPT_REGISTER(INTERRUPT_ID)		( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PEND_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
-#define NVIC_UNPEND_INTERRUPT_REGISTER(INTERRUPT_ID)	( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_UNPEND_OFFSET 	+ 	((INTERRUPT_ID / 32) * 4) ) )
-#define NVIC_ACTIVE_INTERRUPT_REGISTER(INTERRUPT_ID)	( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_ACTIVE_OFFSET 	+ 	((INTERRUPT_ID / 32) * 4) ) )
-#define INTERRUPT_PRIORITY_REGISTER(INTERRUPT_ID)			( (volatile Nvic_Interrupts_Priority_Register_Tag *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PRI_OFFSET 		+ 	((INTERRUPT_ID / 4) * 4) ) )
+#define NVIC_ENABLE_INTERRUPT_REGISTER(INTERRUPT_ID)	*( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_EN_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
+#define NVIC_DISABLE_INTERRUPT_REGISTER(INTERRUPT_ID)	*( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_DIS_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
+#define NVIC_PEND_INTERRUPT_REGISTER(INTERRUPT_ID)		*( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PEND_OFFSET + ((INTERRUPT_ID / 32) * 4) ) )
+#define NVIC_UNPEND_INTERRUPT_REGISTER(INTERRUPT_ID)	*( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_UNPEND_OFFSET 	+ 	((INTERRUPT_ID / 32) * 4) ) )
+#define NVIC_ACTIVE_INTERRUPT_REGISTER(INTERRUPT_ID)	*( (volatile uint32_t *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_ACTIVE_OFFSET 	+ 	((INTERRUPT_ID / 32) * 4) ) )
+#define INTERRUPT_PRIORITY_REGISTER(INTERRUPT_ID)			( (volatile Nvic_Interrupts_Priority_RegisterType *) ( MCU_CORE_PERIPHERALS_BASE_ADDRESS + NVIC_PRI_OFFSET 		+ 	((INTERRUPT_ID / 4) * 4) ) )
 #define INTERRUPT_BIT(INTERRUPT_ID)										(INTERRUPT_ID % 32)
 #define INTERRUPT_INDEX(INTERRUPT_ID)									(INTERRUPT_ID % 4)
 
@@ -71,19 +71,19 @@
 
 	typedef struct{
 		uint32_t reserved			:5;	
-		uint32_t group_Priority		:3;
-	}Nvic_Single_Interrupt_priority_Tag;
+		uint32_t groupPriority		:3;
+	}Nvic_Single_Interrupt_priorityType;
 
 
 	typedef struct{
-		Nvic_Single_Interrupt_priority_Tag single_Interrupt[4];
-	}Nvic_Interrupts_Priority_Register_Tag;
+		Nvic_Single_Interrupt_priorityType single_Interrupt[4];
+	}Nvic_Interrupts_Priority_RegisterType;
 	
 	
 	typedef struct{
 		uint32_t intd 			:8;
 		uint32_t reserved		:24;
-	}Nvic_Software_Trigger_Interrupt_Tag;
+	}Nvic_Software_Trigger_InterruptType;
 	
 	
 	/*SCB*/
@@ -102,9 +102,8 @@
 		uint32_t pendsv				:1;
 		uint32_t reserved4		:2;
 		uint32_t nmiset				:1;
-	}Scb_Interrupt_Control_And_State_Tag;
-	
-	
+	}Scb_Interrupt_Control_And_StateType;
+		
 	typedef union{
 			struct{
 				uint32_t vectreset 		:1;		
@@ -117,7 +116,7 @@
 				uint32_t vectkey			:16;
 			}b;
 			uint32_t r;
-}Scb_Application_Interrupt_and_Reset_Control_Tag;
+}Scb_Application_Interrupt_and_Reset_ControlType;
 	
 	
 #endif  /* INTCTRL_PRIVATE_H */

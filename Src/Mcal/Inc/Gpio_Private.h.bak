@@ -1,0 +1,98 @@
+/**********************************************************************************************************************
+ *  FILE DESCRIPTION
+ *  -------------------------------------------------------------------------------------------------------------------
+ *         File:  <Write File Name>
+ *       Module:  -
+ *
+ *  Description:  <Write File DESCRIPTION here>     
+ *  
+ *********************************************************************************************************************/
+#ifndef FILE_NAME_H
+#define FILE_NAME_H
+
+/**********************************************************************************************************************
+ * INCLUDES
+ *********************************************************************************************************************/
+
+#include "../../Common/Bit_Math.h"
+
+/**********************************************************************************************************************
+ *  GLOBAL CONSTANT MACROS
+ *********************************************************************************************************************/
+#define GPIO_PORT_A_APB_BASE_ADDRESS			0x40004000
+#define GPIO_PORT_B_APB_BASE_ADDRESS			0x40005000
+#define GPIO_PORT_C_APB_BASE_ADDRESS			0x40006000
+#define GPIO_PORT_D_APB_BASE_ADDRESS			0x40007000
+#define GPIO_PORT_E_APB_BASE_ADDRESS			0x40024000
+#define GPIO_PORT_F_APB_BASE_ADDRESS			0x40025000
+#define GPIO_PORT_A_AHB_BASE_ADDRESS			0x40058000
+#define GPIO_PORT_B_AHB_BASE_ADDRESS			0x40059000
+#define GPIO_PORT_C_AHB_BASE_ADDRESS			0x4005A000
+#define GPIO_PORT_D_AHB_BASE_ADDRESS			0x4005B000
+#define GPIO_PORT_E_AHB_BASE_ADDRESS			0x4005C000
+#define GPIO_PORT_F_AHB_BASE_ADDRESS			0x4005D000
+
+
+
+#define GPIODATA_OFFSET							0x000 
+#define GPIODIR_OFFSET							0x400 
+#define GPIOIS_OFFSET							0x404 
+#define GPIOIBE_OFFSET							0x408 
+#define GPIOIEV_OFFSET							0x40C 
+#define GPIOIM_OFFSET							0x410 
+#define GPIORIS_OFFSET							0x414 
+#define GPIOMIS_OFFSET							0x418 
+#define GPIOICR_OFFSET							0x41C 
+#define GPIOAFSEL_OFFSET						0x420 
+#define GPIODR2R_OFFSET							0x500 
+#define GPIODR4R_OFFSET							0x504 
+#define GPIODR8R_OFFSET							0x508 
+#define GPIOODR_OFFSET							0x50C 
+#define GPIOPUR_OFFSET							0x510 
+#define GPIOPDR_OFFSET							0x514 
+#define GPIOSLR_OFFSET							0x518 
+#define GPIODEN_OFFSET							0x51C 
+#define GPIOLOCK_OFFSET							0x520 
+#define GPIOCR_OFFSET							0x524 
+#define GPIOAMSEL_OFFSET						0x528 
+#define GPIOPCTL_OFFSET							0x52C 
+#define GPIOADCCTL_OFFSET						0x530 
+#define GPIODMACTL_OFFSET						0x534 
+#define GPIOPeriphID4_OFFSET					0xFD0 
+#define GPIOPeriphID5_OFFSET					0xFD4 
+#define GPIOPeriphID6_OFFSET					0xFD8 
+#define GPIOPeriphID7_OFFSET					0xFDC 
+#define GPIOPeriphID0_OFFSET					0xFE0 
+#define GPIOPeriphID1_OFFSET					0xFE4 
+#define GPIOPeriphID2_OFFSET					0xFE8 
+#define GPIOPeriphID3_OFFSET					0xFEC 
+#define GPIOPCellID0_OFFSET						0xFF0  
+#define GPIOPCellID1_OFFSET						0xFF4  
+#define GPIOPCellID2_OFFSET						0xFF8  
+#define GPIOPCellID3_OFFSET						0xFFC  
+
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION MACROS
+ *********************************************************************************************************************/
+
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA TYPES AND STRUCTURES
+ *********************************************************************************************************************/
+
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA PROTOTYPES
+ *********************************************************************************************************************/
+
+ 
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION PROTOTYPES
+ *********************************************************************************************************************/
+
+ 
+#endif  /* FILE_NAME_H */
+
+/**********************************************************************************************************************
+ *  END OF FILE: Std_Types.h
+ *********************************************************************************************************************/

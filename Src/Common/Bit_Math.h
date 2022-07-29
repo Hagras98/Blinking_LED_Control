@@ -1,14 +1,14 @@
 /**********************************************************************************************************************
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Mcu_Hw.h
- *       Module:  Mcu
+ *         File:  Bit_Math.h
+ *       Module:  -
  *
  *  Description:  header file for register definitions      
  *  
  *********************************************************************************************************************/
-#ifndef MCU_HW_H
-#define MCU_HW_H
+#ifndef BIT_MATH_H
+#define BIT_MATH_H
 
 /**********************************************************************************************************************
  * INCLUDES
@@ -31,12 +31,13 @@
 
 #define SET_BIT(HW_REG,BIT)						((HW_REG) |= (1<<(BIT)))
 #define CLR_BIT(HW_REG,BIT)						((HW_REG) &= ~(1<<(BIT)))
-#define WRITE_BIT(HW_REG,BIT,VALUE)		(VALUE==1 ? SET_BIT(HW_REG,BIT) : CLR_BIT(HW_REG,BIT))
+#define WRITE_BIT(HW_REG,BIT,VALUE)		(VALUE > 0 ? SET_BIT(HW_REG,BIT) : CLR_BIT(HW_REG,BIT))
 #define TOG_BIT(HW_REG,BIT)						((HW_REG) ^= (1<<(BIT)))
-#define GET_BIT(HW_REG,BIT)						((HW_REG) >> (BIT)&1)
+#define GET_BIT(HW_REG,BIT)						(((HW_REG) >> BIT) & 1)
 #define SET_GROUP(HW_REG,GROUP)				((HW_REG) |= GROUP)
 #define CLR_GROUP(HW_REG,GROUP)				((HW_REG) &= ~GROUP)
 #define GET_GROUP(HW_REG,GROUP)				((HW_REG) & GROUP)
+#define WRITE_HW_REG(HW_REG,VALUE)		(HW_REG = VALUE)
  
  
  
@@ -47,9 +48,9 @@
 
 
 	
-#endif  /* MCU_HW_H */
+#endif  /* BIT_MATH_H */
 
 
 /**********************************************************************************************************************
- *  END OF FILE: Mcu_Hw.h
+ *  END OF FILE: Bit_Math.h
  *********************************************************************************************************************/

@@ -11,46 +11,19 @@
 /****************************************************************************
 *  INCLUDES
 *****************************************************************************/
-
 #include "IntCtrl_Cfg.h"
-
-/***************************************************************************
-*  LOCAL MACROS CONSTANT\FUNCTION
-*****************************************************************************/
-
-
-
-/****************************************************************************
-*  LOCAL DATA
-*****************************************************************************/
-
+#include "../Mcal/Inc/IntCtrl_Interface.h"
 
 /****************************************************************************
 *  GLOBAL DATA
 *****************************************************************************/
-Nvic_Interrupt_Intialization_Tag gpioa_Interrupt = {GPIOA, 1, 3};
-
-Nvic_Interrupt_Intialization_Tag * enabledInterrupts[NUMBER_OF_ENABLED_INTERRUPTS] = {&gpioa_Interrupt};
-
+Nvic_Interrupt_IntializationType timer0aInterrupt = {	APP_INTERRUPT_HANDLER, 1, 3, ENABLE};
+Nvic_Interrupt_IntializationType * enabledInterrupts[NUMBER_OF_ENABLED_INTERRUPTS] = {&timer0aInterrupt};
 
 /****************************************************************************
 *  FUNCTIONS
 *****************************************************************************/
 
-
 /****************************************************************************
-* \Syntax : Std_ReturnType FunctionName(AnyType parameterName)
-* \Description: Describe this service
-*
-* \Sync\Async:
-* \Reentrancy:
-* \Parameters (in):
-* \Parameters (out):
-* \Return Value:
-*
-******************************************************************************/
-
-
-/****************************************************************************
-*  END OF FILE : FileName.c
+*  END OF FILE : IntCtrl_Lcfg.c
 *****************************************************************************/

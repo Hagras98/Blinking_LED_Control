@@ -11,55 +11,31 @@
 /****************************************************************************
 *  INCLUDES
 *****************************************************************************/
+#include "../Mcal/Inc/Intctrl_Interface.h"
 #include "../Config/IntCtrl_Cfg.h"
-
-
-/***************************************************************************
-*  LOCAL MACROS CONSTANT\FUNCTION
-*****************************************************************************/
-
-/****************************************************************************
-*  LOCAL DATA
-*****************************************************************************/
-
-
-/****************************************************************************
-*  GLOBAL DATA
-*****************************************************************************/
 
 /****************************************************************************
 *  FUNCTIONS
 *****************************************************************************/
-
-
-/****************************************************************************
-* \Syntax : Std_ReturnType FunctionName(AnyType parameterName)
-* \Description: Describe this service
-*
-* \Sync\Async:
-* \Reentrancy:
-* \Parameters (in):
-* \Parameters (out):
-* \Return Value:
-*
-******************************************************************************/
-void Nvic_Set_Interrupt_Priority_Binary_Point(void){
+void Nvic_init(Nvic_Interrupt_IntializationType** interruptConfigurations){
 	#if PRIORITY_BINARY_POINT > YYY
 	#error invalid priority binary point 
 	#endif
-	uint32_t apit_Value  = (APIT_VECTOR_KEY << 16) | ((PRIORITY_BINARY_POINT+4) << 8); 
-	SCB_APPLICATION_INTERRUPT_AND_RESET_CONTROL->r = apit_Value;
+	uint32_t apitValue  = (APIT_VECTOR_KEY << 16) | ((PRIORITY_BINARY_POINT+4) << 8); 
+	SCB_APPLICATION_INTERRUPT_AND_RESET_CONTROL->r = apitValue;
+	uint16_t i;
+	for(i = 0; i < NUMBER_OF_ENABLED_INTERRUPTS; i++){
+		uint8_t interruptId = interruptConfigurations[i]->interruptId;
+		uint8_t priGroup = ((interruptConfigurations[i]->groupPriority) << PRIORITY_BINARY_POINT) | interruptConfigurations[i]->subgroupPriority;
+		INTERRUPT_PRIORITY_REGISTER(interruptId)->single_Interrupt[INTERRUPT_INDEX(interruptId)].groupPriority = priGroup;
+		WRITE_BIT(NVIC_ENABLE_INTERRUPT_REGISTER(interruptId), INTERRUPT_BIT(interruptId), interruptConfigurations[i]->interruptEnable);
+	}	
 }
 
-void Nvic_Enable_Interrupt(Nvic_Interrupts_Tag interrupt){
-	SET_BIT(*NVIC_ENABLE_INTERRUPT_REGISTER(interrupt), INTERRUPT_BIT(interrupt));
+void Nvic_Enable_Interrupt(Nvic_InterruptsType interrupt){
+	SET_BIT(NVIC_ENABLE_INTERRUPT_REGISTER(interrupt), INTERRUPT_BIT(interrupt));
 }
 
-void Nvic_Priority_Grouping(Nvic_Interrupt_Intialization_Tag* interrupt){
-	uint8_t interrupt_Id = interrupt->interrupt_name;
-	uint8_t prigroup = ((interrupt->group_Priority) << PRIORITY_BINARY_POINT) | interrupt->subgroup_Priority;
-	INTERRUPT_PRIORITY_REGISTER(interrupt_Id)->single_Interrupt[INTERRUPT_INDEX(interrupt_Id)].group_Priority = prigroup;
-}
 /****************************************************************************
-*  END OF FILE : FileName.c
+*  END OF FILE : IntCtrl_Program.c
 *****************************************************************************/
