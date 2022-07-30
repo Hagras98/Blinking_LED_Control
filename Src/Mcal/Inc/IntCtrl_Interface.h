@@ -27,7 +27,7 @@
 #define YYY 3
 
 #define APIT_VECTOR_KEY	0x05FA
-#define APITVALUE	
+//#define APITVALUE	
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
