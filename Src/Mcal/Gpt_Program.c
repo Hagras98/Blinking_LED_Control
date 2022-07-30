@@ -94,11 +94,7 @@ void Gptm_Init(Gpt_OneShotOrPerodicCfgType* configurations[]){
 		}
 		
 		//Setting interval load value
-		GPTMTAILR(baseAddress) = (configurations[i]->maxTick << prescalarSizeBits) & maxPossibleTick;
-		
-		if(configurations[i]->configuration == GPTM_INDIVIDUAL){
-			GPTMTBILR(baseAddress) = (configurations[i]->maxTick >> (registerSize - prescalarSizeBits)) & maxPossibleTick;			
-		}
+		GPTMTAILR(baseAddress) = (configurations[i]->maxTick << prescalarSizeBits);
 	}
 }
 
@@ -153,7 +149,7 @@ void Gptm_Modify(Gpt_OneShotOrPerodicCfgType* configurations){
 	uint32_t maxPossiblePrescalar = configurations -> timerBlockId > GPTM_TIMER_5_ID? 0xFFFF: 0xFF;
 	uint8_t prescalarSizeBits = 0;		
 		
-	if(configurations->configuration == GPTM_INDIVIDUAL){			
+	if(configurations->configuration == GPTM_INDIVIDUAL){
 		//calculating prescalar
 		uint32_t approxPrescalar = 1;
 		uint32_t prescalarValue = SYSTEM_CLOCK_FREQUENCY / (configurations->frequencyHz);	
@@ -173,12 +169,8 @@ void Gptm_Modify(Gpt_OneShotOrPerodicCfgType* configurations){
 	}
 	
 	//Setting interval load value
-	GPTMTAILR(baseAddress) = (configurations->maxTick << prescalarSizeBits) & maxPossibleTick;
-	
-	if(configurations->configuration == GPTM_INDIVIDUAL){
-		GPTMTBILR(baseAddress) = (configurations->maxTick >> (registerSize - prescalarSizeBits)) & maxPossibleTick;			
+	GPTMTAILR(baseAddress) = (configurations->maxTick << prescalarSizeBits);
 	}
-}
 
 void TIMER0A_Handler (){
 	GPTMICR(GPT_TIMER_0_BASE_ADDRESS)->TATO = ENABLE;
