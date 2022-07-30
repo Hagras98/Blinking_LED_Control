@@ -28,7 +28,6 @@ void Nvic_init(Nvic_Interrupt_IntializationType** interruptConfigurations){
 		uint8_t interruptId = interruptConfigurations[i]->interruptId;
 		uint32_t priGroup = ((interruptConfigurations[i]->groupPriority) << PRIORITY_BINARY_POINT) | interruptConfigurations[i]->subgroupPriority;
 		INTERRUPT_PRIORITY_REGISTER(interruptId) = priGroup << ( ( (interruptId % 4) * 8) + 5);
-		///*((volatile uint32_t*)(0xE000E410)) = priGroup << 29;
 		WRITE_BIT(NVIC_ENABLE_INTERRUPT_REGISTER(interruptId), INTERRUPT_BIT(interruptId), interruptConfigurations[i]->interruptEnable);
 	}	
 }
