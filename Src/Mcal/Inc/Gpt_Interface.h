@@ -2,9 +2,9 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
  *         File:  Gpt_Interface.h
- *       Module:  -
+ *       Module:  General purpose timer
  *
- *  Description:  <Write File DESCRIPTION here>     
+ *  Description:  Header file for GPT_Program.c file
  *  
  *********************************************************************************************************************/
 #ifndef GPT_INTERFACE_H
@@ -13,23 +13,11 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-
 #include "Gpt_Private.h"
-
-/**********************************************************************************************************************
- *  GLOBAL CONSTANT MACROS
- *********************************************************************************************************************/
-
-
-/**********************************************************************************************************************
- *  GLOBAL FUNCTION MACROS
- *********************************************************************************************************************/
- 
  
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-
 typedef enum{
 	GPTM_TIMER_0_ID,
 	GPTM_TIMER_1_ID,
@@ -94,21 +82,16 @@ typedef struct{
 	uint32_t maxTick;
 }Gpt_OneShotOrPerodicCfgType;
 
-/**********************************************************************************************************************
- *  GLOBAL DATA PROTOTYPES
- *********************************************************************************************************************/
  
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
-	void Gptm_Init(Gpt_OneShotOrPerodicCfgType* configurations[]);
-	void Enable_Notification(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
-	void Disable_Notification(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
-	void Gptm_Modify(Gpt_OneShotOrPerodicCfgType* configurations);
-	void Timer_Stop(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
-	void Timer_Start(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
-	
-
+void Gptm_Init(Gpt_OneShotOrPerodicCfgType* configurations[]);
+void Enable_Notification(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
+void Disable_Notification(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
+void Gptm_Modify(Gpt_OneShotOrPerodicCfgType* configurations);
+void Timer_Stop(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);
+void Timer_Start(Gptm_TimerBlockIdType timerBlockId, Gptm_TimerIdType timerId);	
  
 #endif  /* GPT_INTERFACE_H */
 

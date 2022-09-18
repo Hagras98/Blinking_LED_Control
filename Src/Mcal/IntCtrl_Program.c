@@ -17,7 +17,8 @@
 /****************************************************************************
 *  FUNCTIONS
 *****************************************************************************/
-void Nvic_init(Nvic_Interrupt_IntializationType** interruptConfigurations){
+void Nvic_init(Nvic_Interrupt_IntializationType** interruptConfigurations)
+{
 	#if PRIORITY_BINARY_POINT > YYY
 	#error invalid priority binary point 
 	#endif
@@ -32,7 +33,8 @@ void Nvic_init(Nvic_Interrupt_IntializationType** interruptConfigurations){
 	}	
 }
 
-void Nvic_Enable_Interrupt(Nvic_InterruptsType interrupt){
+void Nvic_Enable_Interrupt(Nvic_InterruptsType interrupt)
+{
 	SET_BIT(NVIC_ENABLE_INTERRUPT_REGISTER(interrupt), INTERRUPT_BIT(interrupt));
 }
 

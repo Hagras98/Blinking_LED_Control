@@ -13,20 +13,11 @@
 *****************************************************************************/
 #include "../Mcal/Inc/Gpio_interface.h"
 #include "Gpio_Cfg.h"
-/***************************************************************************
-*  LOCAL MACROS CONSTANT\FUNCTION
-*****************************************************************************/
-
-/****************************************************************************
-*  LOCAL DATA
-*****************************************************************************/
 
 
 /****************************************************************************
 *  GLOBAL DATA
 *****************************************************************************/
-
-
 /*Intialize struct of type Gpio_PinConfigurationsType for every initialized pin.
 Struct elements are:
 	1- port 
@@ -88,35 +79,19 @@ Struct elements are:
 			Can be intialized to:
 				GPIO_DIGITAL
 				GPIO_ANALOG
-
 */
-Gpio_PinConfigurationsType pinA1 = {.port = APP_LED_PORT, .pin = APP_LED_PIN, 
-																		.direction = GPIO_OUTPUT,
-																		.alternateFunction = GPIO_NONE_AF,
-																		.current = GPIO_2_MA, 
-																		.internalConnection = GPIO_TRI_STATE, 
-																		.functionality = GPIO_DIGITAL};
-																		
-	/*Array elemetns are pointers to previously initialized Gpio_PinConfigurationsType
+Gpio_PinConfigurationsType pinA1 = {.port = APP_LED_PORT, 
+									.pin = APP_LED_PIN, 
+									.direction = GPIO_OUTPUT,
+									.alternateFunction = GPIO_NONE_AF,
+									.current = GPIO_2_MA, 
+									.internalConnection = GPIO_TRI_STATE, 
+									.functionality = GPIO_DIGITAL
+};
+									
+	/*Array elements are pointers to previously initialized Gpio_PinConfigurationsType
 	structs*/
 const Gpio_PinConfigurationsType* Gpio_pinsConfigurations[ENABLED_PINS] = {&pinA1};
-
-/****************************************************************************
-*  FUNCTIONS
-*****************************************************************************/
-
-
-/****************************************************************************
-* \Syntax : Std_ReturnType FunctionName(AnyType parameterName)
-* \Description: Describe this service
-*
-* \Sync\Async:
-* \Reentrancy:
-* \Parameters (in):
-* \Parameters (out):
-* \Return Value:
-*
-******************************************************************************/
 
 
 /****************************************************************************

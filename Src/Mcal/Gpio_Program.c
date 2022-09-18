@@ -17,12 +17,14 @@
 /****************************************************************************
 *  GLOBAL DATA
 *****************************************************************************/
- static const uint32_t Gpio_baseAddress[] = {GPIO_PORT_A_BASE_ADDRESS, 
-																						 GPIO_PORT_B_BASE_ADDRESS,
-																						 GPIO_PORT_C_BASE_ADDRESS,
-																						 GPIO_PORT_D_BASE_ADDRESS,
-																						 GPIO_PORT_E_BASE_ADDRESS,
-																						 GPIO_PORT_F_BASE_ADDRESS};
+ static const uint32_t Gpio_baseAddress[] = {
+											GPIO_PORT_A_BASE_ADDRESS, 
+											GPIO_PORT_B_BASE_ADDRESS,
+											GPIO_PORT_C_BASE_ADDRESS,
+											GPIO_PORT_D_BASE_ADDRESS,
+											GPIO_PORT_E_BASE_ADDRESS,
+											GPIO_PORT_F_BASE_ADDRESS
+											};
  
 /****************************************************************************
 *  FUNCTIONS
@@ -30,22 +32,26 @@
 
 void Gpio_Init(Gpio_PinConfigurationsType** configurations){
 	//Enable clock to peripheral
-	uint32_t rcgcgpioValue = (PORT_A_CLOCK << GPIO_PORT_A |
-														PORT_B_CLOCK << GPIO_PORT_B | 
-														PORT_C_CLOCK << GPIO_PORT_C |
-														PORT_D_CLOCK << GPIO_PORT_D |
-														PORT_E_CLOCK << GPIO_PORT_E | 
-														PORT_F_CLOCK << GPIO_PORT_F);
+	uint32_t rcgcgpioValue = (
+							PORT_A_CLOCK << GPIO_PORT_A |
+							PORT_B_CLOCK << GPIO_PORT_B | 
+							PORT_C_CLOCK << GPIO_PORT_C |
+							PORT_D_CLOCK << GPIO_PORT_D |
+							PORT_E_CLOCK << GPIO_PORT_E | 
+							PORT_F_CLOCK << GPIO_PORT_F
+							);
 	
 	WRITE_HW_REG(GPIO_RUN_MODE_CLOCK_GATING, rcgcgpioValue);
 	
 	//Control which internal bus is used to access each GPIO port
-	uint32_t gpiohbctlValue = (PORT_A_BUS << GPIO_PORT_A |
-														 PORT_B_BUS << GPIO_PORT_B |
-														 PORT_C_BUS << GPIO_PORT_C |
-														 PORT_D_BUS << GPIO_PORT_D |
-														 PORT_E_BUS << GPIO_PORT_E |
-														 PORT_F_BUS << GPIO_PORT_F);
+	uint32_t gpiohbctlValue = (
+								PORT_A_BUS << GPIO_PORT_A |
+								PORT_B_BUS << GPIO_PORT_B |
+								PORT_C_BUS << GPIO_PORT_C |
+								PORT_D_BUS << GPIO_PORT_D |
+								PORT_E_BUS << GPIO_PORT_E |
+								PORT_F_BUS << GPIO_PORT_F
+								);
 	
 	WRITE_HW_REG(GPIO_HIGH_PERFORMANCE_BUS_CONTROL, gpiohbctlValue);
 	
@@ -107,7 +113,7 @@ void Gpio_WritePinLevel(Gpio_PortType port, uint32_t pin, Gpio_PinLevelType leve
 
 void Gpio_TogglePinLevel(Gpio_PortType port, uint32_t pin){
 	#if GPIO_DATA_BIT_MASKING == ENABLE
-	uint32_t gpioMaskOffset = 4 * pin;
+	uint32_t gpioMaskOffset = pin << 2;
 	TOG_BIT(GPIO_GET_REGISTER(Gpio_baseAddress[port], gpioMaskOffset), pin);
 	#elif GPIO_DATA_BIT_MASKING == DISABLE
 	TOG_BIT(GPIO_GET_REGISTER(Gpio_baseAddress[port], GPIO_DATA_OFFSET), pin);

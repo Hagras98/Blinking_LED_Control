@@ -17,12 +17,11 @@
 /****************************************************************************
 *  GLOBAL DATA
 *****************************************************************************/
-Nvic_Interrupt_IntializationType timer0aInterrupt = {	APP_INTERRUPT_HANDLER, 1, 3, ENABLE};
-Nvic_Interrupt_IntializationType * enabledInterrupts[NUMBER_OF_ENABLED_INTERRUPTS] = {&timer0aInterrupt};
+Nvic_Interrupt_IntializationType timer0aInterrupt = {	APP_INTERRUPT_HANDLER, 
+														.groupPriority = 3,
+														.subgroupPriority = 1, ENABLE};
 
-/****************************************************************************
-*  FUNCTIONS
-*****************************************************************************/
+Nvic_Interrupt_IntializationType * enabledInterrupts[NUMBER_OF_ENABLED_INTERRUPTS] = {&timer0aInterrupt};
 
 /****************************************************************************
 *  END OF FILE : IntCtrl_Lcfg.c
