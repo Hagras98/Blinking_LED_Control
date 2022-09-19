@@ -24,11 +24,6 @@
 	#define ENABLED_TIMERS	1
 
 /*
-	System clock frequency
-*/
-	#define SYSTEM_CLOCK_FREQUENCY 50000000UL
-
-/*
 	- Port clock enable 
 	0: DISABLE
 	1: ENABLE	
